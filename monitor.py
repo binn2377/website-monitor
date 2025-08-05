@@ -4,8 +4,8 @@ import schedule
 
 # === Cấu hình ===
 WEBSITES = [
-    "https://example.com",
-    "https://google.com"
+    "https://nettruyenvia.com/",
+    "https://alonhadat.com.vn/"
 ]
 THRESHOLD_SECONDS = 3
 
@@ -14,7 +14,7 @@ BOT_TOKEN = 'YOUR_BOT_TOKEN'
 CHAT_ID = 'YOUR_CHAT_ID'
 
 def send_telegram(message):
-    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
+    url = f"https://api.telegram.org/bot8254604373:AAFNVvpyDuzc7-Wee15xV73i-7RfjeqdjPk/sendMessage"
     payload = {
         "chat_id": CHAT_ID,
         "text": message
@@ -54,3 +54,4 @@ job()
 while True:
     schedule.run_pending()
     time.sleep(1)
+
