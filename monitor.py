@@ -44,9 +44,10 @@ def job():
     for site in WEBSITES:
         check_website(site)
 
-schedule.every(5).minutes.do(job)
+schedule.every(0.5).minutes.do(job)
 job()
 
 while True:
     schedule.run_pending()
     time.sleep(1)
+
