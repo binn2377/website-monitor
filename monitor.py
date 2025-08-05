@@ -4,10 +4,10 @@ import schedule
 
 # === Cấu hình ===
 WEBSITES = [
-    "https://nettruyenvia.com/",
-    "https://alonhadat.com.vn/"
+    "https://alonhadat.com.vn/",
+    "https://nettruyenvia.com/"
 ]
-THRESHOLD_SECONDS = 3
+THRESHOLD_SECONDS = 3  # Giới hạn tối đa (giây)
 
 # Thông tin Telegram
 BOT_TOKEN = '8254604373:AAFNVvpyDuzc7-Wee15xV73i-7RfjeqdjPk'
@@ -20,9 +20,7 @@ def send_telegram(message):
         "text": message
     }
     try:
-        response = requests.post(url, data=payload)
-        if response.status_code != 200:
-            print(f"Lỗi gửi telegram: {response.text}")
+        requests.post(url, data=payload)
     except Exception as e:
         print(f"Lỗi gửi Telegram: {e}")
 
@@ -33,26 +31,22 @@ def check_website(url):
         elapsed = time.time() - start
 
         if response.status_code != 200:
-            send_telegram(f"❌ {url} trả về mã lỗi HTTP {response.status_code}")
+            send_telegram(f"❌ {url} lỗi HTTP {response.status_code}")
         elif elapsed > THRESHOLD_SECONDS:
-            send_telegram(f"⚠️ {url} tải chậm: {elapsed:.2f} giây")
+            send_telegram(f"⚠️ {url} chậm ({elapsed:.2f}s)")
         else:
             print(f"✅ {url} OK ({elapsed:.2f}s)")
-    except requests.exceptions.RequestException as e:
-        send_telegram(f"❌ Không thể truy cập {url}:\n{e}")
+    except Exception as e:
+        send_telegram(f"❌ Không truy cập được {url}: {e}")
 
 def job():
-    print("🔍 Kiểm tra website...")
+    print("🔍 Đang kiểm tra website...")
     for site in WEBSITES:
         check_website(site)
 
-schedule.every(5).minutes.do(job)  # Kiểm tra mỗi 5 phút
-
-# Chạy lần đầu
+schedule.every(5).minutes.do(job)
 job()
 
 while True:
     schedule.run_pending()
     time.sleep(1)
-
-
