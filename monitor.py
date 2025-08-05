@@ -10,11 +10,11 @@ WEBSITES = [
 THRESHOLD_SECONDS = 3
 
 # Thông tin Telegram
-BOT_TOKEN = 'YOUR_BOT_TOKEN'
-CHAT_ID = 'YOUR_CHAT_ID'
+BOT_TOKEN = '8254604373:AAFNVvpyDuzc7-Wee15xV73i-7RfjeqdjPk'
+CHAT_ID = '7136615819'
 
 def send_telegram(message):
-    url = f"https://api.telegram.org/bot8254604373:AAFNVvpyDuzc7-Wee15xV73i-7RfjeqdjPk/sendMessage"
+    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
     payload = {
         "chat_id": CHAT_ID,
         "text": message
@@ -54,4 +54,5 @@ job()
 while True:
     schedule.run_pending()
     time.sleep(1)
+
 
